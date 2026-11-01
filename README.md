@@ -41,6 +41,41 @@ Este repositorio sigue el flujo **GitHub Flow**:
 - Una vez aprobado y fusionado el PR, la rama de la funcionalidad se elimina para mantener el repositorio limpio.
 - Los conflictos de código se resuelven en la rama de la funcionalidad, nunca directamente en `main`.
 
+## Distribución con Firebase App Distribution
+
+### Flujo
+Generar APK → App Distribution → Testers → Instalación → Actualización
+
+### Publicación (cómo replicar el proceso)
+1. Actualizar `version` en `pubspec.yaml` (ej. `1.0.1+2`).
+2. Ejecutar `flutter clean`, `flutter pub get` y `flutter build apk --release`.
+3. En Firebase Console → App Distribution → Versiones, subir
+   `build/app/outputs/flutter-apk/app-release.apk`.
+4. Asignar el grupo `QA_Clase`, escribir las Release Notes y pulsar **Distribuir**.
+5. Compartir el enlace de instalación con los testers.
+
+### Versionado
+Formato `versionName+versionCode` en `pubspec.yaml`:
+
+| Versión | Build | Cambio principal |
+|---|---|---|
+| 1.0.0+1 | 1 | Plantillas, programación e historial |
+| 1.0.1+2 | 2 | Filtros por estado en el historial |
+
+El `versionCode` (número después del `+`) se incrementa en cada release.
+Cada versión se marca en Git con un tag (`v1.0.0`, `v1.0.1`).
+
+### Formato de Release Notes
+Versión (build), fecha, responsable, cambios etiquetados
+(`[Nuevo]`, `[Corrección]`, `[Mejora]`), credenciales de prueba y notas para testers.
+
+### Testers
+Grupo `QA_Clase`: dduran@uceva.edu.co
+
+### Flujo de ramas
+`feature/proyecto-base` → `main` y `feature/app_distribution` → `main`
+mediante Pull Request (GitHub Flow, según las reglas de colaboración del proyecto).
+
 ## Equipo
 
 - José Daniel Rivas Tenorio
